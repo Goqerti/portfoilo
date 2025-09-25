@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şirvan Dursunəliyev | Full-Stack Developer</title>
+    <style>
+        /* --- Google Fonts --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        /* --- CSS Variables (New Color Palette) --- */
+        :root {
+            --primary-color: #00c6cf; /* Vibrant Teal/Turquoise */
+            --secondary-color: #ffffff;
+            --background-color: #1a202c; /* Dark Navy Blue */
+            --card-bg-color: #2d3748; /* Slightly Lighter Navy */
+            --text-color: #a0aec0; /* Light Gray for text */
+            --heading-color: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --gradient: linear-gradient(135deg, #00c6cf 0%, #5454c5 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1, h2, h3 {
+            color: var(--heading-color);
+            font-weight: 700;
+        }
+        
+        section {
+            padding: 6rem 0;
+            overflow: hidden; /* For scroll animations */
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        /* --- Navbar (Glassmorphism Effect) --- */
+        .navbar {
+            background: rgba(45, 55, 72, 0.8); /* Semi-transparent */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--heading-color);
+            text-decoration: none;
+        }
+        
+        .navbar .logo span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+
+        /* --- Hero Section (Gradient Background) --- */
+        #hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 90vh;
+            background: var(--background-color);
+            color: #fff;
+            padding: 0 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            font-weight: 700;
+        }
+        
+        .hero-content .name {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+        
+        .hero-btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: #fff;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 198, 207, 0.4);
+        }
+        
+        .hero-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 198, 207, 0.6);
+        }
+
+        /* --- Portfolio Section (Improved Cards) --- */
+        #portfolio {
+            background-color: #2d3748;
+        }
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .portfolio-card {
+            background: var(--card-bg-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .portfolio-card.reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .portfolio-card.reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .card-image-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-content h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .project-description {
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+        
+        .project-tags {
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--primary-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-links a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-right: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .card-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .card-links a i {
+            margin-right: 0.5rem;
+        }
+        
+        /* --- About Section --- */
+        .about-content {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+        }
+        .about-text {
+            flex: 1;
+        }
+        .about-skills {
+            flex: 1;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .skills-grid li {
+            list-style: none;
+            background: var(--card-bg-color);
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        /* --- Contact Section --- */
+        #contact {
+             background-color: #2d3748;
+        }
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--card-bg-color);
+            padding: 3rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #1a202c;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 198, 207, 0.4);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 198, 207, 0.6);
+        }
+        
+        /* --- Footer --- */
+        .footer {
+            background-color: var(--background-color);
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            .about-content {
+                flex-direction: column;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="#hero" class="logo">Şirvan<span>.</span>D</a>
+            <ul class="nav-links">
+                <li><a href="#hero">Ana Səhifə</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#about">Haqqımda</a></li>
+                <li><a href="#contact">Əlaqə</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-content">
+            <h1>Salam, mən <span class="name">Şirvan Dursunəliyev</span></h1>
+            <p>İdeyaları həyata keçirən Full-Stack Developer</p>
+            <a href="#portfolio" class="hero-btn">İşlərimə Baxın</a>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="container">
+            <h2 class="section-title">Layihələrim</h2>
+            <div class="portfolio-grid">
+
+                <div class="portfolio-card reveal">
+                    <div class="card-image-wrapper">
+                        <img src="https://cdn-edge.kwork.ru/files/portfolio/t0/40/fba2316afc8277641c67feb38d4137535b8118f3-1739204240.webp" alt="LaoCar" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3>LaoCar.by</h3>
+                        <p class="project-description">Belarusda premium avtomobillərin icarəsi xidmətini təklif edən veb-sayt. Saytda avtomobil kataloqu, onlayn rezervasiya sistemi və qiymət kalkulyatoru mövcuddur.</p>
+                        <div class="project-tags">
+                            <span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Node.js</span><span class="tag">MongoDB</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://laocar.by/" target="_blank"><i class="fas fa-globe"></i> Sayta Keçid</a>
+                            <a href="#" target="_blank"><i class="fab fa-github"></i> Kodu Göstər</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card reveal">
+                    <div class="card-image-wrapper">
+                        <img src="https://cdn-edge.kwork.ru/files/portfolio/t0/29/d4adf309d2a4272a9c8cf978c388a6dc678e4228-1746278729.webp" alt="Liman Broker" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Palitro AZ</h3>
+                        <p class="project-description">Alman texnologiyaları ilə yüksək keyfiyyətli məhsullar istehsal edərək, Azərbaycanın tikinti sektorunda layiqli yer tutmuş bir şirkət üçün veb sayt</p>
+                        <div class="project-tags">
+                            <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">PHP</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://limanbroker.az/" target="_blank"><i class="fas fa-globe"></i> Sayta Keçid</a>
+                            <a href="#" target="_blank"><i class="fab fa-github"></i> Kodu Göstər</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-card reveal">
+                    <div class="card-image-wrapper">
+                       <img src="https://cdn-edge.kwork.ru/files/portfolio/t0/26/bbe3d5e23e88049c49f438faf2d7d501b7f3e8e4-1740724026.webp" alt="Connect.az" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Connect.az</h3>
+                        <p class="project-description">Azərbaycanın aparıcı internet provayderlərindən biri üçün hazırlanmış e-ticarət və müştəri xidmətləri platforması.</p>
+                        <div class="project-tags">
+                            <span class="tag">Vue.js</span><span class="tag">Nuxt.js</span><span class="tag">Node.js</span><span class="tag">PostgreSQL</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://connect.az/" target="_blank"><i class="fas fa-globe"></i> Sayta Keçid</a>
+                            <a href="#" target="_blank"><i class="fab fa-github"></i> Kodu Göstər</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-card reveal">
+                    <div class="card-image-wrapper">
+                        <img src="https://cdn-edge.kwork.ru/files/portfolio/t0/99/c809d3c7c6b6f35d143a9fdd1f67f36c63177520-1722666388.webp" alt="Godox" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Godox Rəsmi Saytı</h3>
+                        <p class="project-description">Professional foto avadanlıqları istehsalçısı "Godox" üçün hazırlanmış beynəlxalq məhsul kataloqu və distribütor portalı.</p>
+                        <div class="project-tags">
+                            <span class="tag">React</span><span class="tag">Contentful</span><span class="tag">GraphQL</span><span class="tag">AWS</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://godox.com/" target="_blank"><i class="fas fa-globe"></i> Sayta Keçid</a>
+                            <a href="#" target="_blank"><i class="fab fa-github"></i> Kodu Göstər</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-card reveal">
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=2070&auto=format&fit=crop" alt="AZ Cosmetics" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3>AZ-Cosmetics.az</h3>
+                        <p class="project-description">Geniş çeşidli kosmetik məhsulların onlayn satışı üçün yaradılmış e-ticarət platforması. Məhsul filtrləri və endirim kampaniyaları modulları mövcuddur.</p>
+                        <div class="project-tags">
+                            <span class="tag">WordPress</span><span class="tag">WooCommerce</span><span class="tag">PHP</span><span class="tag">jQuery</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://az-cosmetics.az/" target="_blank"><i class="fas fa-globe"></i> Sayta Keçid</a>
+                            <a href="#" target="_blank"><i class="fab fa-github"></i> Kodu Göstər</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card reveal">
+                    <div class="card-image-wrapper">
+                         <img src="https://cdn-edge.kwork.ru/files/portfolio/t0/53/678a263d4007e1f280f73dc4f529554b14b9710d-1757060353.webp" alt="Prestige Vent" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3>Prestige Vent</h3>
+                        <p class="project-description">Tədbirlərin təşkili və idarə olunması üzrə ixtisaslaşmış agentliyin korporativ saytı. Keçirilmiş tədbirlər üçün portfolio qalereyası yaradılıb.</p>
+                         <div class="project-tags">
+                            <span class="tag">HTML5</span><span class="tag">CSS Grid</span><span class="tag">JavaScript</span><span class="tag">Tilda</span>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://prestigevent.uz/" target="_blank"><i class="fas fa-globe"></i> Sayta Keçid</a>
+                            <a href="#" target="_blank"><i class="fab fa-github"></i> Kodu Göstər</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">Mənim Haqqımda</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Salam, mən Şirvan.</h3>
+                    <p>Mən ideyaları real və funksional veb tətbiqlərə çevirməyi sevən bir Full-Stack Developerəm. Həm front-end, həm də back-end texnologiyaları ilə işləyərək istifadəçi üçün rahat və biznes üçün effektiv həllər yaratmağa fokuslanıram.</p>
+                    <p>Məqsədim daima yeni texnologiyaları öyrənmək və tətbiq etməklə öz bacarıqlarımı inkişaf etdirməkdir. Komandada işləməyi və mürəkkəb problemlərə sadə həllər tapmağı sevirəm.</p>
+                </div>
+                <div class="about-skills">
+                     <h3>Texniki Bacarıqlarım</h3>
+                    <ul class="skills-grid">
+                        <li>HTML5 & CSS3</li>
+                        <li>JavaScript (ES6+)</li>
+                        <li>React & Vue.js</li>
+                        <li>Node.js & Express</li>
+                        <li>PHP & WordPress</li>
+                        <li>Python (Django)</li>
+                        <li>SQL & NoSQL</li>
+                        <li>Git & GitHub</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Əlaqə Saxlayın</h2>
+            <form class="contact-form" onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Adınız</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail Ünvanınız</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mesajınız</p>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Mesajı Göndər</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 Şirvan Dursunəliyev. Bütün hüquqlar qorunur.</p>
+    </footer>
+
+    <script>
+        // --- SCROLL REVEAL ANIMATION ---
+        function reveal() {
+          var reveals = document.querySelectorAll(".reveal");
+
+          for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementVisible = 150; // Distance from bottom of viewport to trigger animation
+
+            if (elementTop < windowHeight - elementVisible) {
+              reveals[i].classList.add("active");
+            } else {
+              // Optional: remove class to re-animate on scroll up
+              // reveals[i].classList.remove("active");
+            }
+          }
+        }
+
+        window.addEventListener("scroll", reveal);
+        // To reveal elements already in view on load
+        reveal();
+
+
+        // --- CONTACT FORM HANDLER ---
+        function handleFormSubmit(event) {
+            event.preventDefault(); 
+            const form = event.target;
+            const name = form.querySelector('#name').value;
+            alert(`Təşəkkürlər, ${name}! Mesajınız uğurla 'göndərildi'.`);
+            form.reset(); 
+        }
+    </script>
+
+</body>
+</html>
